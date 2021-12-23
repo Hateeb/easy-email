@@ -124,16 +124,12 @@ export default function Editor() {
   }, [isDarkMode]);
 
   const onUploadImage = async (blob: Blob) => {
-    try {
-      const compressionFile = await (
-        await imageCompression
-      ).default(blob as File, {
-        maxWidthOrHeight: 1440,
-      });
-      return services.common.uploadByQiniu(compressionFile);
-    } catch (error) {
-      return 'https://assets.maocanhua.cn/0cd7e1fc-c482-44e5-86e5-c228fbe38bc4-image.png';
-    }
+    const compressionFile = await (
+      await imageCompression
+    ).default(blob as File, {
+      maxWidthOrHeight: 1440,
+    });
+    return services.common.uploadByQiniu(compressionFile);
   };
 
   const onChangeTheme = useCallback((t) => {
@@ -224,9 +220,10 @@ export default function Editor() {
   return (
     <div>
       <style>{themeStyleText}</style>
-      <EmailEditorProvider
+      <EmailEditorProvider<{ aa: string }>
         key={id}
         height={'calc(100vh - 65px)'}
+        aa='22'
         data={initialValues}
         // interactiveStyle={{
         //   hoverColor: '#78A349',
